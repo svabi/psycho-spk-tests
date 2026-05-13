@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            padding: 20px;
+        }
+
+        /* Начальная страница */
+        .start-page {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .start-btn {
+            width: 300px;
+            height: 200px;
+            border: none;
+            border-radius: 20px;
+            font-size: 28px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+
+        .btn-psycho {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-spk {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .btn-icon {
+            font-size: 50px;
+        }
+
+        /* Страница теста */
+        .test-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+
+        .btn-home {
+            background: #f5f5f5;
+            color: #666;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .btn-home:hover {
+            background: #e0e0e0;
+        }
+
+        .test-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+
+        .test-title {
+            font-size: 24px;
+            color: #333;
+        }
+
+        .progress {
+            font-size: 18px;
+            color: #666;
+        }
+
+        .question-text {
+            font-size: 22px;
+            color: #333;
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .option {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            font-size: 18px;
+            color: #555;
+        }
+
+        .option:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .option.selected {
+            border-color: #667eea;
+            background: #667eea;
+            color: white;
+        }
+
+        .option.correct {
+            border-color: #4caf50;
+            background: #e8f5e9;
+            color: #2e7d32;
+        }
+
+        .option.wrong {
+            border-color: #f44336;
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 30px;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .btn-back {
+            background: #f5f5f5;
+            color: #666;
+        }
+
+        .btn-back:hover {
+            background: #e0e0e0;
+        }
+
+        .btn-next, .btn-finish {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+
+        .btn-next:hover, .btn-finish:hover {
+            opacity: 0.9;
+        }
+
+        .btn-next:disabled, .btn-finish:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Результаты */
+        .results-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 600px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .results-title {
+            font-size: 32px;
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        .score {
+            font-size: 72px;
+            font-weight: bold;
+            color: #667eea;
+            margin: 20px 0;
+        }
+
+        .score-text {
+            font-size: 20px;
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .btn-restart {
+            padding: 15px 40px;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+        }
+
+        .btn-restart:hover {
+            opacity: 0.9;
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .start-btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .test-page {
+                padding: 20px;
+            }
+
+            .question-text {
+                font-size: 18px;
+            }
+
+            .option {
+                font-size: 16px;
+                padding: 15px;
+            }
+        }
+    
+        .btn-search {
+            background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+        }
+
+        /* Страница поиска */
+        .search-page {
+            display: none;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 600px;
+        }
+
+        .search-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 2px solid #eee;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .search-title {
+            font-size: 28px;
+            color: #333;
+            font-weight: bold;
+        }
+
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .search-input {
+            flex: 1;
+            padding: 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            font-size: 18px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .search-input:focus {
+            border-color: #667eea;
+        }
+
+        .search-btn {
+            padding: 15px 30px;
+            border: none;
+            border-radius: 12px;
+            font-size: 18px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            cursor: pointer;
+            transition: opacity 0.2s;
+        }
+
+        .search-btn:hover {
+            opacity: 0.9;
+        }
+
+        .search-results {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .search-result-item {
+            padding: 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            background: #fafafa;
+            transition: all 0.2s;
+        }
+
+        .search-result-item:hover {
+            border-color: #667eea;
+            background: #f8f9ff;
+        }
+
+        .search-result-item.exact-match {
+            border-color: #4caf50;
+            background: #f1f8e9;
+            border-left: 5px solid #4caf50;
+        }
+
+        .search-result-item.exact-match:hover {
+            border-color: #4caf50;
+            background: #e8f5e9;
+        }
+
+        .result-question {
+            font-size: 18px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: 500;
+        }
+
+        .result-answer {
+            font-size: 16px;
+            color: #4caf50;
+            font-weight: bold;
+            padding: 10px;
+            background: #e8f5e9;
+            border-radius: 8px;
+            display: inline-block;
+        }
+
+        .result-source {
+            font-size: 14px;
+            color: #999;
+            margin-top: 10px;
+        }
+
+        .no-results {
+            text-align: center;
+            font-size: 20px;
+            color: #666;
+            padding: 40px;
+        }
+
+        .search-stats {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 20px;
+        }
+</style>
+<base target="_blank">
+<base target="_blank">
+<base target="_blank">
+</head>
+<body>
+    <div class="container">
+        <!-- Начальная страница -->
+        <div class="start-page" id="startPage">
+            <button class="start-btn btn-psycho" onclick="startTest('psycho')">
+                <span class="btn-icon">🧠</span>
+                <span>Психология</span>
+            </button>
+            <button class="start-btn btn-spk" onclick="startTest('spk')">
+                <span class="btn-icon">📚</span>
+                <span>СПК</span>
+            </button>
+            <button class="start-btn btn-search" onclick="openSearch()">
+                <span class="btn-icon">🔍</span>
+                <span>Поиск</span>
+            </button>
+        </div>
+
+        <!-- Страница теста -->
+        <div class="test-page" id="testPage">
+            <div class="test-header">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-home" onclick="goHome()">🏠 Главная</button>
+                    <div class="test-title" id="testTitle">Тест</div>
+                </div>
+                <div class="progress" id="progress">1 / 10</div>
+            </div>
+
+            <div class="question-text" id="questionText"></div>
+
+            <div class="options" id="options"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn btn-back" onclick="goBack()">← Назад</button>
+                <button class="nav-btn btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Следующий →</button>
+            </div>
+        </div>
+
+        <!-- Страница результатов -->
+        <div class="results-page" id="resultsPage">
+            <div class="results-title">Тест завершён!</div>
+            <div class="score" id="score">0/0</div>
+            <div class="score-text" id="scoreText"></div>
+            <button class="btn-restart" onclick="restart()">Вернуться на главную</button>
+        </div>
+
+        <!-- Страница поиска -->
+        <div class="search-page" id="searchPage">
+            <div class="search-header">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-home" onclick="goHomeFromSearch()">🏠 Главная</button>
+                    <div class="search-title">🔍 Поиск вопросов</div>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Введите начало вопроса..." oninput="doSearch()">
+                <button class="search-btn" onclick="doSearch()">Найти</button>
+            </div>
+
+            <div class="search-stats" id="searchStats"></div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+
+    <script>
+        let questions = [];
+        let currentQuestion = 0;
+        let userAnswers = [];
+        let currentTest = '';
+
+        // ========== СОХРАНЕНИЕ СОСТОЯНИЯ ==========
+        const STORAGE_KEY = 'testAppState';
+
+        function saveState() {
+            const state = {
+                page: getCurrentPage(),
+                test: currentTest,
+                currentQuestion: currentQuestion,
+                userAnswers: userAnswers,
+                searchQuery: document.getElementById('searchInput')?.value || '',
+                scrollY: window.scrollY
+            };
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+        }
+
+        function getCurrentPage() {
+            if (document.getElementById('testPage').style.display === 'block') return 'test';
+            if (document.getElementById('searchPage').style.display === 'block') return 'search';
+            if (document.getElementById('resultsPage').style.display === 'block') return 'results';
+            return 'start';
+        }
+
+        function restoreState() {
+            try {
+                const saved = localStorage.getItem(STORAGE_KEY);
+                if (!saved) return false;
+
+                const state = JSON.parse(saved);
+
+                if (state.page === 'test' && state.test) {
+                    // Восстанавливаем тест
+                    currentTest = state.test;
+                    currentQuestion = state.currentQuestion || 0;
+                    userAnswers = state.userAnswers || [];
+
+                    // Загружаем вопросы и показываем
+                    const fileName = currentTest === 'psycho' ? 'psycho-questions.json' : 'spk-questions.json';
+                    fetch(fileName)
+                        .then(r => r.json())
+                        .then(data => {
+                            questions = data;
+                            document.getElementById('startPage').style.display = 'none';
+                            document.getElementById('testPage').style.display = 'block';
+                            document.getElementById('testTitle').textContent = 
+                                currentTest === 'psycho' ? 'Тест по Психологии' : 'Тест по СПК';
+                            showQuestion();
+                            if (state.scrollY) window.scrollTo(0, state.scrollY);
+                        });
+                    return true;
+
+                } else if (state.page === 'search') {
+                    // Восстанавливаем поиск
+                    document.getElementById('startPage').style.display = 'none';
+                    document.getElementById('searchPage').style.display = 'block';
+                    openSearch().then(() => {
+                        if (state.searchQuery) {
+                            document.getElementById('searchInput').value = state.searchQuery;
+                            doSearch();
+                        }
+                        if (state.scrollY) window.scrollTo(0, state.scrollY);
+                    });
+                    return true;
+
+                } else if (state.page === 'results' && state.test) {
+                    // Восстанавливаем результаты
+                    currentTest = state.test;
+                    userAnswers = state.userAnswers || [];
+                    const fileName = currentTest === 'psycho' ? 'psycho-questions.json' : 'spk-questions.json';
+                    fetch(fileName)
+                        .then(r => r.json())
+                        .then(data => {
+                            questions = data;
+                            showResults();
+                            if (state.scrollY) window.scrollTo(0, state.scrollY);
+                        });
+                    return true;
+                }
+
+                return false;
+            } catch (e) {
+                console.error('Ошибка восстановления:', e);
+                return false;
+            }
+        }
+
+        // Сохраняем перед закрытием/обновлением
+        window.addEventListener('beforeunload', saveState);
+
+        // Восстанавливаем при загрузке
+        document.addEventListener('DOMContentLoaded', () => {
+            if (!restoreState()) {
+                // Если нечего восстанавливать — очищаем
+                localStorage.removeItem(STORAGE_KEY);
+            }
+        });
+
+        async function startTest(type) {
+            currentTest = type;
+            const fileName = type === 'psycho' ? 'psycho-questions.json' : 'spk-questions.json';
+
+            try {
+                const response = await fetch(fileName);
+                if (!response.ok) {
+                    throw new Error('Файл не найден');
+                }
+                questions = await response.json();
+            } catch (error) {
+                alert('Ошибка загрузки вопросов: ' + error.message + '\n\nУбедитесь, что файл ' + fileName + ' находится в той же папке.');
+                return;
+            }
+
+            userAnswers = new Array(questions.length).fill(null);
+            currentQuestion = 0;
+
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('testPage').style.display = 'block';
+            document.getElementById('testTitle').textContent = type === 'psycho' ? 'Тест по Психологии' : 'Тест по СПК';
+
+            showQuestion();
+            saveState();
+        }
+
+        function showQuestion() {
+            const q = questions[currentQuestion];
+            document.getElementById('progress').textContent = `${currentQuestion + 1} / ${questions.length}`;
+            document.getElementById('questionText').textContent = q.question;
+
+            const optionsDiv = document.getElementById('options');
+            optionsDiv.innerHTML = '';
+
+            q.options.forEach((opt, idx) => {
+                const div = document.createElement('div');
+                div.className = 'option';
+                div.textContent = opt;
+                div.onclick = () => selectOption(idx);
+
+                // Если уже отвечали
+                if (userAnswers[currentQuestion] !== null) {
+                    if (idx === userAnswers[currentQuestion]) {
+                        div.classList.add('selected');
+                    }
+                    // Показываем правильный ответ
+                    if (idx === q.correct_index) {
+                        div.classList.add('correct');
+                    } else if (idx === userAnswers[currentQuestion] && idx !== q.correct_index) {
+                        div.classList.add('wrong');
+                    }
+                }
+
+                optionsDiv.appendChild(div);
+            });
+
+            // Обновляем кнопку "Следующий"
+            const nextBtn = document.getElementById('nextBtn');
+            if (userAnswers[currentQuestion] !== null) {
+                nextBtn.disabled = false;
+                if (currentQuestion === questions.length - 1) {
+                    nextBtn.textContent = 'Завершить';
+                    nextBtn.className = 'nav-btn btn-finish';
+                } else {
+                    nextBtn.textContent = 'Следующий →';
+                    nextBtn.className = 'nav-btn btn-next';
+                }
+            } else {
+                nextBtn.disabled = true;
+            }
+        }
+
+        function selectOption(index) {
+            if (userAnswers[currentQuestion] !== null) return; // Уже ответили
+
+            userAnswers[currentQuestion] = index;
+
+            const options = document.querySelectorAll('.option');
+            const q = questions[currentQuestion];
+
+            options.forEach((opt, idx) => {
+                opt.style.pointerEvents = 'none';
+                if (idx === index) {
+                    opt.classList.add('selected');
+                }
+                if (idx === q.correct_index) {
+                    opt.classList.add('correct');
+                } else if (idx === index && idx !== q.correct_index) {
+                    opt.classList.add('wrong');
+                }
+            });
+
+            document.getElementById('nextBtn').disabled = false;
+            saveState();
+        }
+
+        function nextQuestion() {
+            if (currentQuestion < questions.length - 1) {
+                currentQuestion++;
+                showQuestion();
+                saveState();
+            } else {
+                showResults();
+            }
+        }
+
+        function goBack() {
+            if (currentQuestion > 0) {
+                currentQuestion--;
+                showQuestion();
+                saveState();
+            } else {
+                document.getElementById('testPage').style.display = 'none';
+                document.getElementById('startPage').style.display = 'flex';
+                saveState();
+            }
+        }
+
+        function goHome() {
+            document.getElementById('testPage').style.display = 'none';
+            document.getElementById('startPage').style.display = 'flex';
+            questions = [];
+            userAnswers = [];
+            currentQuestion = 0;
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        function showResults() {
+            let correct = 0;
+            userAnswers.forEach((ans, idx) => {
+                if (ans === questions[idx].correct_index) {
+                    correct++;
+                }
+            });
+
+            document.getElementById('testPage').style.display = 'none';
+            document.getElementById('resultsPage').style.display = 'block';
+            document.getElementById('score').textContent = `${correct}/${questions.length}`;
+
+            const percentage = Math.round((correct / questions.length) * 100);
+            let text = '';
+            if (percentage >= 90) text = 'Отличный результат! 🎉';
+            else if (percentage >= 70) text = 'Хороший результат! 👍';
+            else if (percentage >= 50) text = 'Удовлетворительно. Можно лучше.';
+            else text = 'Стоит повторить материал. 📖';
+
+            document.getElementById('scoreText').textContent = `${percentage}% — ${text}`;
+        }
+
+        function restart() {
+            document.getElementById('resultsPage').style.display = 'none';
+            document.getElementById('startPage').style.display = 'flex';
+            questions = [];
+            userAnswers = [];
+            currentQuestion = 0;
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        // ========== ФУНКЦИИ ПОИСКА ==========
+
+        let allQuestions = []; // Все вопросы из обоих файлов
+
+        async function openSearch() {
+            // Загружаем оба файла
+            allQuestions = [];
+            saveState();
+
+            try {
+                const psychoResponse = await fetch('psycho-questions.json');
+                if (psychoResponse.ok) {
+                    const psychoData = await psychoResponse.json();
+                    psychoData.forEach(q => {
+                        q.source = 'Психология';
+                        allQuestions.push(q);
+                    });
+                }
+            } catch (e) {
+                console.log('Не удалось загрузить psycho-questions.json');
+            }
+
+            try {
+                const spkResponse = await fetch('spk-questions.json');
+                if (spkResponse.ok) {
+                    const spkData = await spkResponse.json();
+                    spkData.forEach(q => {
+                        q.source = 'СПК';
+                        allQuestions.push(q);
+                    });
+                }
+            } catch (e) {
+                console.log('Не удалось загрузить spk-questions.json');
+            }
+
+            document.getElementById('startPage').style.display = 'none';
+            document.getElementById('searchPage').style.display = 'block';
+            document.getElementById('searchInput').focus();
+
+            // Показываем сколько вопросов загружено
+            document.getElementById('searchStats').textContent = 
+                `Загружено ${allQuestions.length} вопросов. Введите слово для поиска.`;
+            document.getElementById('searchResults').innerHTML = '';
+        }
+
+        function goHomeFromSearch() {
+            document.getElementById('searchPage').style.display = 'none';
+            document.getElementById('startPage').style.display = 'flex';
+            allQuestions = [];
+            localStorage.removeItem(STORAGE_KEY);
+        }
+
+        let searchTimeout;
+
+        function doSearch() {
+            clearTimeout(searchTimeout);
+
+            searchTimeout = setTimeout(() => {
+                const query = document.getElementById('searchInput').value.trim().toLowerCase();
+                const resultsDiv = document.getElementById('searchResults');
+                const statsDiv = document.getElementById('searchStats');
+
+                if (!query) {
+                    statsDiv.textContent = `Загружено ${allQuestions.length} вопросов. Начните вводить текст вопроса.`;
+                    resultsDiv.innerHTML = '';
+                    return;
+                }
+
+                if (query.length < 2) {
+                    statsDiv.textContent = 'Введите минимум 2 символа...';
+                    resultsDiv.innerHTML = '';
+                    return;
+                }
+
+                // Ищем ТОЛЬКО по тексту вопроса
+                let results = allQuestions.filter(q => {
+                    const qText = q.question.toLowerCase();
+                    return qText.includes(query);
+                });
+
+                // Сортируем: сначала точное совпадение начала, потом содержит
+                results.sort((a, b) => {
+                    const aText = a.question.toLowerCase();
+                    const bText = b.question.toLowerCase();
+                    const aStarts = aText.startsWith(query);
+                    const bStarts = bText.startsWith(query);
+
+                    if (aStarts && !bStarts) return -1;
+                    if (!aStarts && bStarts) return 1;
+                    return aText.localeCompare(bText);
+                });
+
+                statsDiv.textContent = `Найдено: ${results.length} результатов по запросу "${query}"`;
+
+                if (results.length === 0) {
+                    resultsDiv.innerHTML = '<div class="no-results">😕 Ничего не найдено. Попробуйте другие слова.</div>';
+                    return;
+                }
+
+                saveState();
+
+                resultsDiv.innerHTML = results.map(q => {
+                    const correctAnswer = q.options[q.correct_index];
+                    const isExactStart = q.question.toLowerCase().startsWith(query);
+                    const highlightClass = isExactStart ? 'exact-match' : '';
+                    return `
+                        <div class="search-result-item ${highlightClass}">
+                            <div class="result-question">${escapeHtml(q.question)}</div>
+                            <div class="result-answer">✅ ${escapeHtml(correctAnswer)}</div>
+                            <div class="result-source">📁 ${q.source} | ID: ${q.id}</div>
+                        </div>
+                    `;
+                }).join('');
+            }, 200);
+        }
+
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+    </script>
+</body>
+</html>
