@@ -252,24 +252,196 @@
             opacity: 0.9;
         }
 
-        /* Адаптивность */
+        /* ========== АДАПТИВНОСТЬ ДЛЯ ТЕЛЕФОНОВ ========== */
         @media (max-width: 768px) {
-            .start-btn {
-                width: 100%;
-                max-width: 300px;
+            body {
+                align-items: flex-start;
+                padding: 10px 0;
             }
 
+            .container {
+                padding: 10px;
+                max-width: 100%;
+            }
+
+            /* Главная страница */
+            .start-page {
+                flex-direction: column;
+                gap: 20px;
+                padding: 20px 0;
+            }
+
+            .start-btn {
+                width: 100%;
+                max-width: 100%;
+                height: 140px;
+                font-size: 24px;
+                border-radius: 16px;
+            }
+
+            .btn-icon {
+                font-size: 40px;
+            }
+
+            /* Страница теста */
             .test-page {
                 padding: 20px;
+                border-radius: 16px;
+                margin: 0 5px;
+            }
+
+            .test-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+
+            .test-title {
+                font-size: 20px;
+            }
+
+            .progress {
+                font-size: 16px;
+                align-self: flex-end;
+            }
+
+            .btn-home {
+                font-size: 14px;
+                padding: 8px 14px;
             }
 
             .question-text {
                 font-size: 18px;
+                margin-bottom: 20px;
             }
 
             .option {
                 font-size: 16px;
-                padding: 15px;
+                padding: 16px;
+                border-radius: 10px;
+            }
+
+            .nav-buttons {
+                flex-direction: column;
+                gap: 10px;
+                margin-top: 20px;
+            }
+
+            .nav-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            /* Результаты */
+            .results-page {
+                padding: 30px 20px;
+                margin: 0 5px;
+            }
+
+            .results-title {
+                font-size: 24px;
+            }
+
+            .score {
+                font-size: 56px;
+            }
+
+            .score-text {
+                font-size: 16px;
+            }
+
+            .btn-restart {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            /* Поиск */
+            .search-page {
+                padding: 20px;
+                border-radius: 16px;
+                margin: 0 5px;
+                min-height: auto;
+            }
+
+            .search-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+                margin-bottom: 20px;
+                padding-bottom: 15px;
+            }
+
+            .search-title {
+                font-size: 22px;
+            }
+
+            .search-box {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 20px;
+            }
+
+            .search-input {
+                width: 100%;
+                font-size: 16px;
+                padding: 14px 16px;
+            }
+
+            .search-btn {
+                width: 100%;
+                padding: 14px;
+                font-size: 16px;
+            }
+
+            .search-results {
+                max-height: none;
+                overflow-y: visible;
+            }
+
+            .search-result-item {
+                padding: 16px;
+            }
+
+            .result-question {
+                font-size: 16px;
+            }
+
+            .result-answer {
+                font-size: 14px;
+                padding: 8px;
+            }
+
+            .result-source {
+                font-size: 12px;
+            }
+
+            .search-stats {
+                font-size: 14px;
+            }
+        }
+
+        /* Очень маленькие экраны */
+        @media (max-width: 380px) {
+            .start-btn {
+                height: 120px;
+                font-size: 20px;
+            }
+
+            .btn-icon {
+                font-size: 32px;
+            }
+
+            .question-text {
+                font-size: 16px;
+            }
+
+            .option {
+                font-size: 14px;
+                padding: 14px;
             }
         }
     
@@ -409,7 +581,6 @@
             margin-bottom: 20px;
         }
 </style>
-<base target="_blank">
 <base target="_blank">
 <base target="_blank">
 </head>
