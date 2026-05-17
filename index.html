@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Тесты</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Floating orbs -->
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <div class="container">
+        <!-- Начальная страница -->
+        <div class="start-page" id="startPage">
+            <button class="start-btn btn-psycho" onclick="selectSubject('psycho')">
+                <span class="btn-icon">🧠</span>
+                <span>Психология</span>
+                <span class="btn-label">160 вопросов</span>
+            </button>
+            <button class="start-btn btn-spk" onclick="selectSubject('spk')">
+                <span class="btn-icon">📚</span>
+                <span>СПК</span>
+                <span class="btn-label">480 вопросов</span>
+            </button>
+            <button class="start-btn btn-search" onclick="openSearch()">
+                <span class="btn-icon">🔍</span>
+                <span>Поиск</span>
+                <span class="btn-label">По всем вопросам</span>
+            </button>
+        </div>
+
+        <!-- Страница выбора варианта -->
+        <div class="variant-page" id="variantPage">
+            <div class="variant-header">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-home" onclick="goHomeFromVariants()">🏠 Главная</button>
+                    <div class="variant-title" id="variantTitle">Выбор варианта</div>
+                </div>
+            </div>
+            <div class="variant-subtitle" id="variantSubtitle">Выберите вариант из доступных:</div>
+            <div class="variant-grid" id="variantGrid"></div>
+        </div>
+
+        <!-- Страница теста -->
+        <div class="test-page" id="testPage">
+            <div class="test-header">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-home" onclick="goHome()">🏠 Главная</button>
+                    <button class="btn-home" onclick="backToVariants()">📋 К вариантам</button>
+                    <div class="test-title" id="testTitle">Тест</div>
+                </div>
+                <div class="progress" id="progress">1 / 40</div>
+            </div>
+
+            <div class="question-text" id="questionText"></div>
+
+            <div class="options" id="options"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn btn-back" id="backBtn" onclick="goBack()">← Назад</button>
+                <button class="nav-btn btn-next" id="nextBtn" onclick="nextQuestion()" disabled>Следующий →</button>
+            </div>
+        </div>
+
+        <!-- Страница результатов -->
+        <div class="results-page" id="resultsPage">
+            <div class="results-title">Тест завершён!</div>
+            <div class="variant-info" id="variantInfo"></div>
+            <div class="score" id="score">0/40</div>
+            <div class="score-text" id="scoreText"></div>
+            <div class="results-buttons">
+                <button class="btn-restart" onclick="restart()">🏠 На главную</button>
+                <button class="btn-variants" onclick="backToVariants()">📋 К вариантам</button>
+                <button class="btn-next-variant" onclick="nextVariant()">➡️ Следующий вариант</button>
+            </div>
+        </div>
+
+        <!-- Страница поиска -->
+        <div class="search-page" id="searchPage">
+            <div class="search-header">
+                <div style="display: flex; align-items: center; gap: 15px; flex-wrap: wrap;">
+                    <button class="btn-home" onclick="goHomeFromSearch()">🏠 Главная</button>
+                    <div class="search-title">🔍 Поиск вопросов</div>
+                </div>
+            </div>
+
+            <div class="search-box">
+                <input type="text" class="search-input" id="searchInput" placeholder="Введите начало вопроса..." oninput="doSearch()">
+                <button class="search-btn" onclick="doSearch()">Найти</button>
+            </div>
+
+            <div class="search-stats" id="searchStats"></div>
+            <div class="search-results" id="searchResults"></div>
+        </div>
+    </div>
+    
+    <script src="script.js"></script>
+</body>
+</html>
